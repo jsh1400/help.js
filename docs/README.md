@@ -20,18 +20,18 @@ export default class App extends React.Component {
 	render() {
 		const helpList= [
 		  {
-		    selector: '#iTest_7',
-		    title: 'help test 7',
-		    description: 'help test 7'
+		    selector: '#iTest_2',
+		    title: 'help test 2',
+		    description: 'help test 2'
 		  },
 		  {
-		    selector: '#iTest_37',
-		    description: 'help test 37',
+		    selector: '#iTest_3',
+		    description: 'help test 3',
 		    position: 'bottom'
 		  },
 		  {
-		    selector: '#iTest_57',
-		    description: 'help test 57'
+		    selector: '#iTest_4',
+		    description: 'help test 4'
 		  }
 		]
 		return(<div>
@@ -42,6 +42,11 @@ export default class App extends React.Component {
 				    onSkip={()=>this.setState({play: false})}
 				    onClose={()=>this.setState({play: false})}
 			    />
+			    <h1 id="iTest_1">iTest_1</h1>
+			    <h3 id="iTest_2">iTest_2</h3>
+			    <h5 id="iTest_3">iTest_3</h5>
+			    <h1 id="iTest_4">iTest_4</h1>
+			    <h6 id="iTest_5">iTest_5</h6>
 			</div>)
 	}
 }
