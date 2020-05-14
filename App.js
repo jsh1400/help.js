@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import JHelp from './Component/Help'
-import Test from './Test'
+import JHelp from '@jsh1400/help.js'
+import Demo from './Demo'
 
 
 const helpList= [
@@ -53,7 +53,7 @@ class App extends React.Component {
             onSkip={()=>this.setState({play: false})}
             onClose={()=>this.setState({play: false})}
           />
-          <Test count={70}/>
+          <Demo count={70}/>
         </header>
       </div>
     )

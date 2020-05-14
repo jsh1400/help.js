@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export default class Test extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   static propTypes = {
     count: PropTypes.number,
   }
