@@ -1,7 +1,7 @@
 {
-  "name": "@jsh1400/help.js",
-  "version": "1.0.0",
-  "description": "react timepicker",
+  "name": "@jsh1400/help.js_demo",
+  "version": "1.0.7",
+  "description": "help.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --open --env.env=dev --config webpack.dev.js --watch",
@@ -12,7 +12,12 @@
     "url": "git+ssh://git@github.com/jsh1400/@jsh1400/help.js.git"
   },
   "keywords": [
-    "react timepicker"
+    "react",
+    "tour",
+    "help",
+    "step",
+    "tooltip",
+    "راهنما"
   ],
   "deprecated": false,
   "engines": {
@@ -28,6 +33,7 @@
     "react": "^15.5.4"
   },
   "dependencies": {
+    "@jsh1400/help.js": "^1.0.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "webpack": "^4.41.5"
