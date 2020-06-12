@@ -279,7 +279,7 @@ function useWindowResize () {
     }
     window.addEventListener('resize', handelResize)
     return () => {
-      window.removeEventListener('resize', handelResize)
+      window && window.removeEventListener && window.removeEventListener('resize', handelResize)
     }
   })
 
@@ -299,10 +299,10 @@ function scroll (i = 0, end = 0, speed = 100, timeout = 0) {
     else {
       kn = (i - end) > 20 ? i - 10 : (i - end) > 10 ? i - 5 : i - 1
     }
-    window.scrollTo(0, kn)
+    window && window.scrollTo && window.scrollTo(0, kn)
     if (timeout < 500) {
       timeout += speed
-      window.setTimeout(scroll, speed, kn, end, speed, timeout)
+      window && window.setTimeout && window.setTimeout(scroll, speed, kn, end, speed, timeout)
     }
   }
 }
@@ -313,15 +313,19 @@ class Portal extends React.Component{
   componentDidMount() {
     var div = document.getElementById("react-jTour");
     if (!div) {
-      var div = document.createElement('div');
-      div.id = "react-jTour";
-      document.body.appendChild(div);
+      var _div = document.createElement('div');
+      _div.id = "react-jTour";
+      document.body.appendChild(_div);
+      this.portalElement = _div;
+    } else {
+      this.portalElement = div;
     }
-    this.portalElement = div;
     this.componentDidUpdate();
   }
   componentWillUnmount() {
-    document.body.removeChild(this.portalElement);
+    if(document && document.getElementById && document.getElementById("react-jTour") && document.body && document.body.removeChild) {
+      document.body.removeChild(document.getElementById("react-jTour"));
+    }
   }
   componentDidUpdate() {
     ReactDOM.render(<div {...this.props}>{this.props.children}</div>, this.portalElement);
