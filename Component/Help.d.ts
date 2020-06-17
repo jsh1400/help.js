@@ -18,6 +18,7 @@ interface DefaultProps {
     nextClassName?:string;
     skipClassName?:string;
     closeClassName?:string;
+    breakStep?:boolean;
     style?:{}
 }
 

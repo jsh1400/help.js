@@ -4,7 +4,8 @@
   "description": "help.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --open --env.env=dev --config webpack.config.js --watch"
+    "start": "webpack-dev-server --open --env.env=dev --config webpack.config.js --watch",
+    "build": "cross-env NODE_ENV=production webpack -p --env.env=prod --config webpack.prod.js"
   },
   "repository": {
     "type": "git",

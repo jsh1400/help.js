@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import ReactDOM from 'react-dom';
+import {render} from 'react-dom';
 
 export default function Help (props) {
   const [play, setPlay] = useState(`${!!props.play}` === 'true')
@@ -235,11 +235,26 @@ export default function Help (props) {
 
         setHtml(data)
       }
+      else{
+        if(props.breakStep) {
+          if (step < end) {
+            setStep(step + 1);
+            props.onNext && props.onNext(step + 1)
+          }
+          else {
+            setHtml('')
+            setPlay(false)
+            setStep(props.startStep || 0)
+            props.onClose && props.onClose(step)
+          }
+        }
+      }
     }
   }
+  if(!play) return null;
 
   return (
-    <React.Fragment>
+    <>
       {props.children}
       <Portal>
             <style>{`
@@ -263,7 +278,7 @@ export default function Help (props) {
              @-o-keyframes fadein {from {opacity:0;}to {opacity: 1;}}
            `}</style>
         {play && helpHtml}</Portal>
-    </React.Fragment>
+    </>
   )
 }
 
@@ -328,6 +343,6 @@ class Portal extends React.Component{
     }
   }
   componentDidUpdate() {
-    ReactDOM.render(<div {...this.props}>{this.props.children}</div>, this.portalElement);
+    render(<div {...this.props}>{this.props.children}</div>, this.portalElement);
   }
 }

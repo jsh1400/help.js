@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import JHelp from './Component/Help'
-import JHelp from '@jsh1400/help.js'
+import JHelp from './Component/Help'
+// import JHelp from '@jsh1400/help.js'
 import Demo from './Demo'
 
 
 const helpList= [
   {
-    selector: '#iTest_7',
+    selector: '#iTest_700',
     title: 'help test 7',
     description: 'help test 7'
   },
@@ -42,6 +42,11 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
+          <div style={{
+            position:'relative',
+            margin: '100px',
+            padding: '100px',
+          }}>
           <button
             style={{
               position:'fixed', top: 0, left: 0, zIndex:2,
@@ -49,12 +54,14 @@ class App extends React.Component {
             }}
             onClick={()=> this.setState({play: !this.state.play})}>HELP</button>
           <JHelp
+            breakStep={true}
             play={this.state.play}
             helpList={helpList}
             onSkip={()=>this.setState({play: false})}
             onClose={()=>this.setState({play: false})}
           />
           <Demo count={70}/>
+          </div>
         </header>
       </div>
     )
