@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import JHelp from './Component/Help'
-// import JHelp from '@jsh1400/help.js'
+// import JHelp from './Component/Help'
+import JHelp from '@jsh1400/help.js'
 import Demo from './Demo'
 
 
