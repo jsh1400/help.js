@@ -43,28 +43,39 @@ export default function Help (props) {
         window.scrollTo(0, 0)
         const dataObj = obj.getBoundingClientRect()
 
-        let _h = Math.floor((window.innerHeight + dataObj.height) / 2)
-        window.scrollTo(0, dataObj.top)
+        const padding = props.padding && parseInt(props.padding) > 0 ? parseInt(props.padding): 0
 
-        scroll(scrollY, (dataObj.top - _h), 1)
+        const  _dataObj = {
+          height: dataObj.height + (padding * 2),
+          width: dataObj.width + (padding * 2),
+          top: dataObj.top - padding,
+          bottom: dataObj.bottom + padding,
+          left: dataObj.left - padding,
+          right: dataObj.right + padding,
+        }
+
+        let _h = Math.floor((window.innerHeight + _dataObj.height) / 2)
+        window.scrollTo(0, _dataObj.top)
+
+        scroll(scrollY, (_dataObj.top - _h), 1)
 
         const _right = {
-          left: dataObj.width + 20,
+          left: _dataObj.width + 20,
           top: 0,
         }
         const _left = {
-          right: dataObj.width + 20,
+          right: _dataObj.width + 20,
           top: 0,
         }
         const _top = {
           left: direction === 'ltr' ? 0 : 'auto',
           right: direction === 'rtl' ? 0 : 'auto',
-          bottom: dataObj.height + 20,
+          bottom: _dataObj.height + 20,
         }
         const _bottom = {
           left: direction === 'ltr' ? 0 : 'auto',
           right: direction === 'rtl' ? 0 : 'auto',
-          top: dataObj.height + 20,
+          top: _dataObj.height + 20,
         }
         let pos = {}
         let posArrow = {}
@@ -100,7 +111,7 @@ export default function Help (props) {
             }
             break
           default:
-            if (dataObj.left > 300) {
+            if (_dataObj.left > 300) {
               pos = _left
               posArrow = {
                 right: '-10px',
@@ -108,7 +119,7 @@ export default function Help (props) {
               }
             }
             else {
-              if (dataObj.left + dataObj.width + 300 < width) {
+              if (_dataObj.left + _dataObj.width + 300 < width) {
                 pos = _right
                 posArrow = {
                   left: '-10px',
@@ -116,7 +127,7 @@ export default function Help (props) {
                 }
               }
               else {
-                if (dataObj.top > 100) {
+                if (_dataObj.top > 100) {
                   pos = _top
                   posArrow = {
                     left: direction === 'ltr' ? '10px' : 'auto',
@@ -125,7 +136,7 @@ export default function Help (props) {
                   }
                 }
                 else {
-                  if (dataObj.top + dataObj.height + 100 < height) {
+                  if (_dataObj.top + _dataObj.height + 100 < height) {
                     pos = _bottom
                     posArrow = {
                       left: direction === 'ltr' ? '10px' : 'auto',
@@ -150,10 +161,11 @@ export default function Help (props) {
         let data =
           <div className={'react-jTour'} id={`react-jTour_${step}`} key={`react-jTour_${step}`}>
             <div style={{
-              top: dataObj.top,
-              left: dataObj.left,
-              width: dataObj.width,
-              height: dataObj.height,
+              top: _dataObj.top,
+              left: _dataObj.left,
+              width: _dataObj.width,
+              height: _dataObj.height,
+              borderRadius: padding/2
             }}>
               <div style={{ ...pos }}>
                 <div
