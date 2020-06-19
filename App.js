@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import JHelp from './Component/Help'
-// import JHelp from '@jsh1400/help.js'
+// import JHelp from './Component/Help'
+import JHelp from '@jsh1400/help.js'
 import Demo from './Demo'
 
 
@@ -54,7 +54,7 @@ class App extends React.Component {
             }}
             onClick={()=> this.setState({play: !this.state.play})}>HELP</button>
           <JHelp
-            padding={5}
+            padding={2}
             breakStep={true}
             play={this.state.play}
             helpList={helpList}
