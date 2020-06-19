@@ -19,6 +19,7 @@ interface DefaultProps {
     skipClassName?:string;
     closeClassName?:string;
     breakStep?:boolean;
+    padding?:number;
     style?:{}
 }
 

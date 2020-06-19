@@ -73,6 +73,7 @@ export default class App extends React.Component {
 |skipClassName|string|undefined|
 |closeClassName|string|undefined|
 |breakStep|boolean|false|
+|padding|number|0|
 |style|object|{}|
 
 ---
