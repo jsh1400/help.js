@@ -1,15 +1,28 @@
-# help.js
+# Tour / Help
 
 ![help.js](https://raw.githubusercontent.com/jsh1400/help.js/master/docs/help.js.png)
 
->help.js online [Demo](https://jsh1400.github.io/help.js/)
-
 [![NPM version][npm-version-image]][npm-url] [![NPM downloads][npm-downloads-size-image]][npm-url] [![NPM downloads][npm-downloads-image]][downloads-url] [![MIT License][license-image]][license-url] [![Build Status][travis-image]][travis-url]
 
+* [Installation](#installation)
+* [Usage](#usage)
+* [KeyDown Tools](#keydown)
+* [Props](#props)
+* [Demo](#demo)
+* [License](#license)
+* [Author](#author)
 
+This Component is Tour (step by step) for help to learning ... :)
+
+
+
+### Installation
 ```
 npm i @jsh1400/help.js
 ```
+
+
+### Usage
 
 ```javascript
 import React from 'react'
@@ -20,18 +33,18 @@ export default class App extends React.Component {
 	render() {
 		const helpList= [
 		  {
-		    selector: '#iTest_2',
-		    title: 'help test 2',
-		    description: 'help test 2'
+		    selector: '#iTest_7',
+		    title: 'help test 7',
+		    description: 'help test 7'
 		  },
 		  {
-		    selector: '#iTest_3',
-		    description: 'help test 3',
+		    selector: '#iTest_37',
+		    description: 'help test 37',
 		    position: 'bottom'
 		  },
 		  {
-		    selector: '#iTest_4',
-		    description: 'help test 4'
+		    selector: '#iTest_57',
+		    description: 'help test 57'
 		  }
 		]
 		return(<div>
@@ -42,21 +55,31 @@ export default class App extends React.Component {
 				    onSkip={()=>this.setState({play: false})}
 				    onClose={()=>this.setState({play: false})}
 			    />
-			    <h1 id="iTest_1">iTest_1</h1>
-			    <h3 id="iTest_2">iTest_2</h3>
-			    <h5 id="iTest_3">iTest_3</h5>
-			    <h1 id="iTest_4">iTest_4</h1>
-			    <h6 id="iTest_5">iTest_5</h6>
+			    
+			    <div id="iTest_7">iTest_7</div>
+			    <div id="iTest_37">iTest_37</div>
+			    <div id="iTest_57">iTest_57</div>
+			    
 			</div>)
 	}
 }
 
+
 ```
-### props
+
+
+### KeyDown
+> `Escape` == OnSkip Event  
+> `ArrowRight` == OnPrev Event   
+> `ArrowLeft` == OnNext Event
+
+
+
+### Props
 |props|type|default|
 |-----|----|-------------|
 |* play|boolean|false|
-|* helpList|array[{ selector: string, title: string, description: string, position: string }]| []|
+|* helpList|array[{ selector: string, img: string, title: string, description: string, position: string }]| []|
 |startStep|number|0|
 |endStep|number|0| 
 |nextLabel|string|'next'|
@@ -72,11 +95,19 @@ export default class App extends React.Component {
 |nextClassName|string|undefined|
 |skipClassName|string|undefined|
 |closeClassName|string|undefined|
-|breakStep|boolean|false|
-|padding|number|0|
 |style|object|{}|
 
----
+
+
+### Demo
+>help.js online [Demo](https://jsh1400.github.io/help.js/)
+
+
+### License
+MIT
+
+
+### Author
 >Javad Shariati <jsh1400@yahoo.com>
 
 
