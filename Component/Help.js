@@ -3,6 +3,7 @@ import {render} from 'react-dom';
 
 export default function Help (props) {
   const [play, setPlay] = useState(`${!!props.play}` === 'true')
+  const [playProps, setPlayProps] = useState(`${!!props.play}` === 'true')
   const [step, setStep] = useState(props.startStep || 0)
   const [direction, setDirection] = useState(props.direction || 'ltr')
   const [end, setEndStep] = useState(
@@ -11,6 +12,33 @@ export default function Help (props) {
                      props.helpList.length - 1 : 0)
   const [helpHtml, setHtml] = useState('')
   const [width, height] = useWindowResize()
+
+  const EscapePress = useKeyPress('Escape');
+  const ArrowRightPress = useKeyPress('ArrowRight');
+  const ArrowLeftPress = useKeyPress('ArrowLeft');
+  const EnterPress = useKeyPress('Enter');
+
+  const _close = ()=>{
+    setHtml('')
+    setPlay(false)
+    setStep(props.startStep || 0)
+    props.onClose && props.onClose(step)
+  }
+  const _skip = ()=>{
+    setHtml('')
+    setPlay(false)
+    setStep(props.startStep || 0)
+    props.onSkip && props.onSkip(step)
+  }
+
+  const _prev=()=>{
+    props.onPrev && props.onPrev(step - 1)
+    setStep(step - 1)
+  }
+  const _next=()=>{
+    props.onNext && props.onNext(step + 1)
+    setStep(step + 1)
+  }
 
   if (props.helpList && props.endStep !== undefined && props.helpList >
     props.endStep && end !== props.endStep) {
@@ -26,9 +54,30 @@ export default function Help (props) {
       _run(props.helpList)
     }
   }, [play, step, width, height])
+
   useEffect(() => {
-    setPlay(`${props.play}` === 'true')
-  }, [props.play])
+    if(play){
+      if (EscapePress) {
+        _skip();
+      }
+      if (step > 0 && ArrowLeftPress) {
+        _prev()
+      }
+      if (ArrowRightPress || EnterPress) {
+        if(step < end){
+          _next()
+        } else {
+          _close()
+        }
+      }
+    }
+  }, [ EscapePress, ArrowLeftPress, ArrowRightPress, EnterPress])
+
+  useEffect(() => {
+    if(!EnterPress && `${playProps}` !== `${props.play}`){
+      setPlay(`${props.play}` === 'true')
+    }
+  }, [props.play, EnterPress])
 
   function _run (helpList) {
     if (helpList && helpList[step]) {
@@ -200,8 +249,7 @@ export default function Help (props) {
                       <button
                         className={props.prevClassName || 'react-jTour-prev'}
                         onClick={() => {
-                          props.onPrev && props.onPrev(step - 1)
-                          setStep(step - 1)
+                          _prev()
                         }}>{props.prevLabel || 'prev'}</button>
                     }
                     {
@@ -209,8 +257,7 @@ export default function Help (props) {
                       <button
                         className={props.nextClassName || 'react-jTour-next'}
                         onClick={() => {
-                          props.onNext && props.onNext(step + 1)
-                          setStep(step + 1)
+                          _next()
                         }}>{props.nextLabel || 'next'}</button>
                     }
                   </div>
@@ -223,9 +270,7 @@ export default function Help (props) {
                     <button
                       className={props.skipClassName || 'react-jTour-skip'}
                       onClick={() => {
-                        setHtml('')
-                        setPlay(false)
-                        props.onSkip && props.onSkip(step)
+                        _skip()
                       }}>{props.skipLabel || 'skip'}</button>
                     }
                     {
@@ -233,10 +278,7 @@ export default function Help (props) {
                       <button
                         className={props.closeClassName || 'react-jTour-close'}
                         onClick={() => {
-                          setHtml('')
-                          setPlay(false)
-                          setStep(props.startStep || 0)
-                          props.onClose && props.onClose(step)
+                          _close()
                         }}>{props.closeLabel || 'close'}</button>
                     }
                   </div>
@@ -250,14 +292,10 @@ export default function Help (props) {
       else{
         if(props.breakStep) {
           if (step < end) {
-            setStep(step + 1);
-            props.onNext && props.onNext(step + 1)
+            _next()
           }
           else {
-            setHtml('')
-            setPlay(false)
-            setStep(props.startStep || 0)
-            props.onClose && props.onClose(step)
+            _close()
           }
         }
       }
@@ -332,6 +370,38 @@ function scroll (i = 0, end = 0, speed = 100, timeout = 0) {
       window && window.setTimeout && window.setTimeout(scroll, speed, kn, end, speed, timeout)
     }
   }
+}
+
+function useKeyPress(targetKey) {
+  // State for keeping track of whether key is pressed
+  const [keyPressed, setKeyPressed] = useState(false);
+
+  // If pressed key is our target key then set to true
+  function downHandler({ key }) {
+    if (key === targetKey) {
+      setKeyPressed(true);
+    }
+  }
+
+  // If released key is our target key then set to false
+  const upHandler = ({ key }) => {
+    if (key === targetKey) {
+      setKeyPressed(false);
+    }
+  };
+
+  // Add event listeners
+  useEffect(() => {
+    window.addEventListener('keydown', downHandler);
+    window.addEventListener('keyup', upHandler);
+    // Remove event listeners on cleanup
+    return () => {
+      window.removeEventListener('keydown', downHandler);
+      window.removeEventListener('keyup', upHandler);
+    };
+  }, []); // Empty array ensures that effect is only run on mount and unmount
+
+  return keyPressed;
 }
 
 class Portal extends React.Component{
