@@ -1,4 +1,4 @@
-# help.js
+# Tour / Help
 
 ![help.js](https://raw.githubusercontent.com/jsh1400/help.js/master/docs/help.js.png)
 
